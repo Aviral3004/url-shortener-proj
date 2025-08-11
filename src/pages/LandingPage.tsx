@@ -1,5 +1,19 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 const LandingPage = () => {
-  return <div>LandingPage</div>;
+  return (
+    <div>
+      <h2 className="my-10 sm:my-16 text-3xl sm:text-6xl lg:text-7xl text-white text-center font-extrabold">
+        The only URL Shortener
+        <br /> you'll ever need! 👇
+      </h2>
+      <form action="">
+        <Input/>
+        <Button>Shorten!</Button>
+      </form>
+    </div>
+  );
 };
 
 export default LandingPage;
