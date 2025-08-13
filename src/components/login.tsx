@@ -10,9 +10,12 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import ErrorMessage from "./error";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login, type User } from "@/db/apiAuth";
 import * as Yup from "yup";
+import useFetch from "@/hooks/use-fetch";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { UrlState } from "@/context";
 
 type ErrorMap = Record<string, string>;
 const Login = () => {
@@ -21,6 +24,9 @@ const Login = () => {
     password: "",
   });
   const [errors, setErrors] = useState<ErrorMap>({});
+  const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
+  const longLink = searchParams.get("createNew");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -30,18 +36,15 @@ const Login = () => {
     }));
   };
 
-  const fnLogin = async (formData: User) => {
-    try {
-      console.log(formData);
-      const response = await login(formData);
-      console.log("Login succesfull!", response.user);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error("Login Failed!", err.message);
-      }
-      console.error("Unexpected error occurred during login!", err);
-    }
-  };
+  const { data, error, loading, fn: fnLogin } = useFetch(login, formData);
+
+  useEffect(() => {
+    console.log("Logged in user data:", data);
+    // if (error === null || data) {
+    //   navigate(`/dashboard?=${longLink ? `createnew${longLink}` : ""}`);
+    //   const { fetchUser } = UrlState();
+    // }
+  }, [data, error]);
 
   const handleLogin = async (): Promise<void> => {
     setErrors({});
@@ -57,7 +60,7 @@ const Login = () => {
 
       await schema.validate(formData, { abortEarly: false });
       //api call
-      await fnLogin(formData);
+      await fnLogin();
     } catch (e) {
       const newErrors: ErrorMap = {};
 
@@ -79,7 +82,7 @@ const Login = () => {
         <CardDescription>
           to your account if you already have one
         </CardDescription>
-        <ErrorMessage message={"some error"} />
+        {error && <ErrorMessage message={error.message} />}
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="space-y-1">
@@ -103,7 +106,7 @@ const Login = () => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleLogin}>
-          {true ? (
+          {loading ? (
             <BeatLoader size={10} color="#36d7b7" />
           ) : (
             <span className="font-bold">Login</span>
