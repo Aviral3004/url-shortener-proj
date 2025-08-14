@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 import { BeatLoader } from "react-spinners";
 import ErrorMessage from "./error";
 import { useEffect, useState } from "react";
-import { login, type User } from "@/db/apiAuth";
+import { signup, type UserSignup } from "@/db/apiAuth";
 import * as Yup from "yup";
 import useFetch from "@/hooks/use-fetch";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -19,9 +19,11 @@ import { UrlState } from "@/context";
 
 type ErrorMap = Record<string, string>;
 const Signup = () => {
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<UserSignup>({
     email: "",
     password: "",
+    name: "",
+    profile_pic: null,
   });
   const [errors, setErrors] = useState<ErrorMap>({});
   const navigate = useNavigate();
@@ -29,38 +31,40 @@ const Signup = () => {
   const longLink = searchParams.get("createNew");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: files ? files[0] : value,
     }));
   };
 
-  const { data, error, loading, fn: fnLogin } = useFetch(login, formData);
+  const { data, error, loading, fn: fnSignup } = useFetch(signup, formData);
+  const { fetchUser } = UrlState();
 
   useEffect(() => {
-    console.log("Signed up user data:",data);
-    // if (error === null || data) {
-    //   navigate(`/dashboard?=${longLink ? `createnew${longLink}` : ""}`);
-    //   const { fetchUser } = UrlState();
-    // }
-  }, [data, error]);
+    if (error === null && data) {
+      navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
+      fetchUser();
+    }
+  }, [error, loading]);
 
   const handleSignup = async (): Promise<void> => {
     setErrors({});
     try {
       const schema = Yup.object().shape({
+        name: Yup.string().required("Name is required!"),
         email: Yup.string()
           .email("Invalid Email")
           .required("Email is required!"),
         password: Yup.string()
           .min(6, "Password must be atleast 6 characters!")
           .required("Password is required!"),
+        profile_pic: Yup.mixed().required("Profile picture is required!")
       });
 
       await schema.validate(formData, { abortEarly: false });
       //api call
-      // await fnLogin();
+      await fnSignup();
     } catch (e) {
       const newErrors: ErrorMap = {};
 
@@ -82,7 +86,7 @@ const Signup = () => {
         <CardDescription>
           Create an account if you haven't already
         </CardDescription>
-        {/* {error && <ErrorMessage message={error.message} />} */}
+        {error && <ErrorMessage message={error.message} />}
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="space-y-1">

@@ -3,7 +3,7 @@ import useFetch from "./hooks/use-fetch";
 import { getCurrentUser } from "./db/apiAuth";
 import type { User } from "@supabase/supabase-js";
 
-interface Context {
+export interface Context {
   children: React.ReactNode;
 }
 
@@ -18,7 +18,7 @@ const UrlContext = createContext<UrlContextType | null>(null);
 
 const UrlProvider = ({ children }: Context) => {
   const { data: user, loading, fn: fetchUser } = useFetch(getCurrentUser);
-  const isAuthenticated = user?.role === "authenticated";
+  const isAuthenticated = user?.role == "authenticated";
   useEffect(() => {
     fetchUser();
   }, []);

@@ -9,7 +9,7 @@ export interface UserSignup {
   email: string;
   name: string;
   password: string;
-  profile_pic: string;
+  profile_pic: string | null;
 }
 
 export async function login({ email, password }: User) {
@@ -46,7 +46,7 @@ export async function signup({
   const fileName = `dp-${name.split(" ").join("-")}-${Math.random()}`;
   const { error: storageError } = await supabase.storage
     .from("profile_pic")
-    .upload(fileName, profile_pic);
+    .upload(fileName, profile_pic as string);
 
   if (storageError) {
     throw new Error(storageError.message);
@@ -68,4 +68,11 @@ export async function signup({
   }
 
   return data;
+}
+
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    throw new Error(error.message);
+  }
 }
