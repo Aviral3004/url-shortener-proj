@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { LinkIcon, LogOut } from "lucide-react";
+import { HomeIcon, LinkIcon, LogOut } from "lucide-react";
 import { UrlState } from "@/context";
 import useFetch from "@/hooks/use-fetch";
 import { logout } from "@/db/apiAuth";
@@ -54,6 +54,12 @@ const Header = () => {
                   {user?.user_metadata?.name}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <DropdownMenuItem className="flex gap-0">
+                  <Link to={"/"} className="flex gap-0">
+                    <HomeIcon className="mr-2 h-4 w-4" />
+                    Home
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem className="flex gap-0">
                   <Link to={"/dashboard"} className="flex gap-0">
                     <LinkIcon className="mr-2 h-4 w-4" />

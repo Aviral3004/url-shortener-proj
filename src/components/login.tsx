@@ -17,7 +17,7 @@ import useFetch from "@/hooks/use-fetch";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { UrlState } from "@/context";
 
-type ErrorMap = Record<string, string>;
+export type ErrorMap = Record<string, string>;
 const Login = () => {
   const [formData, setFormData] = useState<User>({
     email: "",
@@ -40,7 +40,7 @@ const Login = () => {
   const { fetchUser } = UrlState();
 
   useEffect(() => {
-    console.log("Logged in user data:", data);
+    // console.log("Logged in user data:", data);
     if (error === null && data) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
       fetchUser();
