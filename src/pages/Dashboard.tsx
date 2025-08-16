@@ -2,11 +2,9 @@ import { BarLoader } from "react-spinners";
 import {
   Card,
   CardContent,
-  CardAction,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Filter } from "lucide-react";
@@ -61,26 +59,24 @@ const Dashboard = () => {
         <Card>
           <CardHeader>
             <CardTitle>Links Created</CardTitle>
-            <CardAction>{urls?.length}</CardAction>
           </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
+          <CardContent className="text-2xl font-semibold">
+            {urls?.length}
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle>Total Clicks</CardTitle>
-            <CardAction>{clicks?.length}</CardAction>
           </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
+          <CardContent className="text-2xl font-semibold">
+            {clicks?.length}
           </CardContent>
         </Card>
       </div>
 
       <div className="flex justify-between">
         <h1 className="text-4xl font-extrabold">My Links</h1>
-        <CreateLink/>
+        <CreateLink />
       </div>
       <div className="relative">
         <Input

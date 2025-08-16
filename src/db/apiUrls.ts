@@ -18,6 +18,16 @@ export interface CreateUrl {
   user_id?: string;
 }
 
+export interface LongUrl {
+  id?: number;
+  original_url?: string;
+}
+
+export interface Url {
+  id?: string;
+  user_id?: string;
+}
+
 export async function getUrls(user_id: string): Promise<UrlRow[]> {
   const { data, error } = await supabase
     .from("urls")
@@ -77,4 +87,35 @@ export async function createUrl(
   }
 
   return (data ?? []) as UrlRow[];
+}
+
+export async function getLongUrl(id: string): Promise<LongUrl> {
+  const { data, error } = await supabase
+    .from("urls")
+    .select("id, original_url")
+    .or(`short_url.eq.${id},custom_url.eq.${id}`)
+    .single();
+
+  if (error) {
+    console.error(error.message);
+    throw new Error("Error fetching short link");
+  }
+
+  return data as LongUrl;
+}
+
+export async function getUrl({ id, user_id }: Url): Promise<UrlRow> {
+  const { data, error } = await supabase
+    .from("urls")
+    .select("*")
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .single();
+
+  if (error) {
+    console.error(error.message);
+    throw new Error("Short URL not found!");
+  }
+
+  return data as UrlRow;
 }
