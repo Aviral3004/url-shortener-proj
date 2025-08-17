@@ -122,7 +122,7 @@ const CreateLink = () => {
           />
           {errors.longUrl && <ErrorMessage message={errors.longUrl} />}
           <div className="flex items-center gap-2">
-            <Card className="p-2">bytelink.in</Card>
+            <Card className="p-2">byteLink.in</Card>
             /
             <Input
               id="customUrl"

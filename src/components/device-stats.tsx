@@ -25,16 +25,7 @@ const DeviceInfo = React.memo(({ stats }: Stats) => {
     <div className="location-chart w-full h-80">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={700} height={400}>
-          <Pie
-            data={devices}
-            dataKey="count"
-            labelLine={false}
-            cx="50%"
-            cy="50%"
-            label={({ name, percent = 0 }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
-            }
-          >
+          <Pie data={devices} dataKey="count" labelLine={false}>
             {devices.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
@@ -44,6 +35,27 @@ const DeviceInfo = React.memo(({ stats }: Stats) => {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
+      <div className="flex flex-wrap gap-4 justify-center">
+        {devices.map((d, idx) => (
+          <div
+            key={d.name}
+            className="flex items-center gap-2 text-sm font-semibold"
+            style={{ color: COLORS[idx % COLORS.length] }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: 12,
+                height: 12,
+                backgroundColor: COLORS[idx % COLORS.length],
+                borderRadius: "50%",
+                marginRight: 6,
+              }}
+            />
+            {d.name}: {((d.count / stats.length) * 100).toFixed(0)}%
+          </div>
+        ))}
+      </div>
     </div>
   );
 });
