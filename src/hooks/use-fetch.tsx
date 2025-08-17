@@ -7,7 +7,7 @@ type AsyncFunction<TData, TOptions, TArgs extends any[]> = (
 
 type UseFetchReturn<TData, TArgs extends any[]> = {
   data: TData | null;
-  loading: boolean;
+  loading: boolean | null;
   error: Error | null;
   fn: (...args: TArgs) => Promise<void>;
 };
@@ -17,7 +17,7 @@ function useFetch<TData = unknown, TOptions = {}, TArgs extends any[] = []>(
   options?: TOptions
 ): UseFetchReturn<TData, TArgs> {
   const [data, setData] = useState<TData | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
   const fn = async (...args: TArgs): Promise<void> => {

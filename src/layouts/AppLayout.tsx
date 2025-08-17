@@ -5,9 +5,9 @@ const AppLayout = () => {
   const currentYear: number = new Date().getFullYear();
   return (
     <div>
-      <main className="min-h-screen container mx-auto">
+      <main className="min-h-screen container mx-auto p-6 sm:p-0">
         {/* Header */}
-        <Header/>
+        <Header />
         {/* Body */}
         <Outlet />
       </main>

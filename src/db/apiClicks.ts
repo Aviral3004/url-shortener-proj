@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 import { UAParser } from "ua-parser-js";
 
-interface UrlClicks {
+export interface UrlClicks {
   city: string;
   country: string;
   created_at?: string;

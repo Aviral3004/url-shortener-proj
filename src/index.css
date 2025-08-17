@@ -115,3 +115,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.location-chart svg:focus,
+.location-chart svg:active {
+  outline: none !important;
+  border: none !important;
+}
