@@ -121,3 +121,10 @@
   outline: none !important;
   border: none !important;
 }
+
+svg path:focus,
+svg path:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

@@ -1,3 +1,4 @@
+import DeviceInfo from "@/components/device-stats";
 import Location from "@/components/location-stats";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,8 +6,8 @@ import { UrlState } from "@/context";
 import { getClicksForUrl } from "@/db/apiClicks";
 import { deleteUrl, getUrl } from "@/db/apiUrls";
 import useFetch from "@/hooks/use-fetch";
-import { Copy, Download, LinkIcon, Trash } from "lucide-react";
-import { useEffect } from "react";
+import { Check, Copy, Download, LinkIcon, Trash } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BarLoader, BeatLoader } from "react-spinners";
 
@@ -23,6 +24,7 @@ const Link = () => {
     anchor.click();
     document.body.removeChild(anchor);
   };
+  const [copied, setCopied] = useState<boolean>(false);
   const navigate = useNavigate();
   const { user } = UrlState();
   const { id } = useParams();
@@ -43,6 +45,12 @@ const Link = () => {
     deleteUrl,
     Number(id)
   );
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   useEffect(() => {
     fn();
@@ -93,11 +101,12 @@ const Link = () => {
           <div className="flex gap-2">
             <Button
               variant={"ghost"}
-              onClick={() =>
-                navigator.clipboard.writeText(`https://byteLink.in/${link}`)
-              }
+              onClick={() => {
+                navigator.clipboard.writeText(`https://byteLink.in/${link}`);
+                setCopied(true);
+              }}
             >
-              <Copy />
+              {copied ? <Check /> : <Copy />}
             </Button>
             <Button variant={"ghost"} onClick={downloadImage}>
               <Download />
@@ -141,9 +150,9 @@ const Link = () => {
               </Card>
 
               <CardTitle>Location Data</CardTitle>
-              <Location stats={stats}/>
+              <Location stats={stats} />
               <CardTitle>Device Info</CardTitle>
-              {/* <DeviceInfo stats={stats/> */}
+              <DeviceInfo stats={stats} />
             </CardContent>
           ) : (
             <CardContent>

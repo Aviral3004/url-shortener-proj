@@ -1,9 +1,10 @@
 import { deleteUrl, type UrlRow } from "@/db/apiUrls";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Copy, Download, Trash } from "lucide-react";
+import { Check, Copy, Download, Trash } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { BeatLoader } from "react-spinners";
+import { useEffect, useState } from "react";
 
 export interface FilterUrls {
   url: UrlRow;
@@ -11,6 +12,14 @@ export interface FilterUrls {
 }
 
 const LinkCard = ({ url, fetchUrls }: FilterUrls) => {
+  const [copied, setCopied] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
   const downloadImage = () => {
     const imageUrl = url.qr;
     const fileName = url.title;
@@ -54,13 +63,15 @@ const LinkCard = ({ url, fetchUrls }: FilterUrls) => {
         <div className="flex gap-2">
           <Button
             variant={"ghost"}
-            onClick={() =>
+            onClick={() => {
               navigator.clipboard.writeText(
                 `https://byteLink.in/${url.short_url}`
-              )
-            }
+              );
+
+              setCopied(true);
+            }}
           >
-            <Copy />
+            {copied ? <Check /> : <Copy />}
           </Button>
           <Button variant={"ghost"} onClick={downloadImage}>
             <Download />

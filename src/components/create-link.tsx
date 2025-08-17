@@ -148,7 +148,7 @@ const CreateLink = () => {
         )}
         <DialogFooter className="sm:justify-start">
           <Button
-            disabled={loading}
+            disabled={loading ?? false}
             type="submit"
             className="p-2 bg-white text-black text-sm rounded-lg font-bold hover:bg-gray-300 cursor-pointer hover:scale-95 duration-200"
             onClick={createNewLink}

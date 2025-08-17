@@ -19,6 +19,16 @@ const Header = () => {
   const navigate: NavigateFunction = useNavigate();
   const { user, fetchUser } = UrlState();
   const { loading, fn: fnLogout } = useFetch(logout);
+
+  function getInitials(name: string) {
+    if (!name) return "";
+    const words = name.trim().split(/\s+/);
+    if (words.length == 1) {
+      return words[0][0].toUpperCase();
+    }
+    return words[0][0].toUpperCase() + words[1][0].toUpperCase();
+  }
+
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
@@ -46,7 +56,9 @@ const Header = () => {
                     src={user?.user_metadata?.profile_pic}
                     className="object-contain"
                   />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback>
+                    {getInitials(user.user_metadata.name)}
+                  </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -54,13 +66,13 @@ const Header = () => {
                   {user?.user_metadata?.name}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex gap-0">
+                <DropdownMenuItem className="flex gap-0" asChild>
                   <Link to={"/"} className="flex gap-0">
                     <HomeIcon className="mr-2 h-4 w-4" />
                     Home
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-0">
+                <DropdownMenuItem className="flex gap-0" asChild>
                   <Link to={"/dashboard"} className="flex gap-0">
                     <LinkIcon className="mr-2 h-4 w-4" />
                     My Links

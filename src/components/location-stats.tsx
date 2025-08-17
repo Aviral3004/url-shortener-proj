@@ -9,13 +9,14 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import "../index.css"
+import "../index.css";
+import React from "react";
 
-interface LocationStats {
+export interface Stats {
   stats: UrlClicks[];
 }
 
-const Location = ({ stats }: LocationStats) => {
+const Location = React.memo(({ stats }: Stats) => {
   const cityCount = stats.reduce<Record<string, number>>((acc, item) => {
     if (acc[item.city]) {
       acc[item.city] += 1;
@@ -40,12 +41,12 @@ const Location = ({ stats }: LocationStats) => {
           <YAxis stroke="#A0AEC0" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#1A202C", // dark tooltip background
+              backgroundColor: "#1A202C",
               border: "none",
               borderRadius: "8px",
             }}
-            labelStyle={{ color: "#E2E8F0" }} // light gray
-            itemStyle={{ color: "#14D4E3" }} // cyan text for values
+            labelStyle={{ color: "#E2E8F0" }}
+            itemStyle={{ color: "#14D4E3" }}
           />
           <Legend wrapperStyle={{ color: "#E2E8F0" }} />
           <Line
@@ -59,6 +60,6 @@ const Location = ({ stats }: LocationStats) => {
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default Location;
