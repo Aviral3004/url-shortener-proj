@@ -77,7 +77,7 @@ const Login = () => {
     }
   };
   return (
-    <Card>
+    <Card className="p-4">
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>
