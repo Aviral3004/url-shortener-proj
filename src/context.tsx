@@ -10,7 +10,7 @@ export interface Context {
 interface UrlContextType {
   user: User | null;
   fetchUser: () => Promise<void>;
-  loading: boolean;
+  loading: boolean | null;
   isAuthenticated: boolean;
 }
 
