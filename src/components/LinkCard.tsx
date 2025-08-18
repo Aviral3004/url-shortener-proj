@@ -65,7 +65,7 @@ const LinkCard = ({ url, fetchUrls }: FilterUrls) => {
             variant={"ghost"}
             onClick={() => {
               navigator.clipboard.writeText(
-                `https://byteLink.in/${url.short_url}`
+                `https://bytelink-url-shortner.vercel.app/${url.short_url}`
               );
 
               setCopied(true);

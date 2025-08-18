@@ -80,7 +80,7 @@ const Link = () => {
             {url?.title}
           </span>
           <a
-            href={`https://byteLink.in/${link}`}
+            href={`https://bytelink-url-shortner.vercel.app/${link}`}
             target="_blank"
             className="text-xl md:text-2xl text-blue-400 font-bold hover:underline cursor-pointer"
           >
@@ -103,7 +103,7 @@ const Link = () => {
             <Button
               variant={"ghost"}
               onClick={() => {
-                navigator.clipboard.writeText(`https://byteLink.in/${link}`);
+                navigator.clipboard.writeText(`https://bytelink-url-shortner.vercel.app/${link}`);
                 setCopied(true);
               }}
             >
