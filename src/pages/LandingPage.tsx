@@ -40,7 +40,7 @@ const LandingPage = () => {
           Shorten!
         </Button>
       </form>
-      <Accordion type="multiple" className="w-full md:p-11">
+      <Accordion type="multiple" className="w-full md:p-11 mt-20">
         <AccordionItem value="item-1">
           <AccordionTrigger>What is ByteLink?</AccordionTrigger>
           <AccordionContent>

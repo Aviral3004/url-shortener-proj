@@ -128,9 +128,3 @@ svg path:active {
   box-shadow: none !important;
   border: none !important;
 }
-
-@media (max-width: 432px) {
-  .device-stats {
-    font-size: 9px;
-  }
-}

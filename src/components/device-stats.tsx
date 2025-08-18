@@ -22,8 +22,8 @@ const DeviceInfo = React.memo(({ stats }: Stats) => {
   }));
 
   return (
-    <div className="location-chart w-full h-80">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="location-chart w-full h-100">
+      <ResponsiveContainer width="100%" height="80%">
         <PieChart width={700} height={400}>
           <Pie data={devices} dataKey="count" labelLine={false}>
             {devices.map((_, index) => (
