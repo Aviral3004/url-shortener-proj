@@ -59,7 +59,7 @@ const Signup = () => {
         password: Yup.string()
           .min(6, "Password must be atleast 6 characters!")
           .required("Password is required!"),
-        profile_pic: Yup.mixed().required("Profile picture is required!")
+        profile_pic: Yup.mixed().required("Profile picture is required!"),
       });
 
       await schema.validate(formData, { abortEarly: false });
@@ -128,9 +128,9 @@ const Signup = () => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleSignup}>
+        <Button onClick={handleSignup} disabled={loading ?? false}>
           {loading ? (
-            <BeatLoader size={10} color="#36d7b7" />
+            <BeatLoader size={10} color="black" />
           ) : (
             <span className="font-bold">Create Account</span>
           )}

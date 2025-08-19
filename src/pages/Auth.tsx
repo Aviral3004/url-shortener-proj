@@ -12,8 +12,6 @@ const Auth = () => {
 
   const { isAuthenticated, loading } = UrlState();
 
-  // console.log("isAuthenticated or not value", isAuthenticated)
-
   useEffect(() => {
     if (isAuthenticated && !loading) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
@@ -21,7 +19,7 @@ const Auth = () => {
   }, [isAuthenticated, loading, navigate]);
   return (
     <div className="mt-20 flex flex-col items-center gap-10">
-      {searchParams.get("createNew") ? "Hold up! Let's Login first.." : ""}
+      {searchParams.get("createNew") ? <span className="text-2xl font-bold">Hold up! Let's Login first..</span> : ""}
       <h1 className="sm:text-5xl font-extrabold text-4xl">Login / Signup</h1>
       <Tabs defaultValue="login" className="w-[410px] px-10">
         <TabsList className="grid w-full grid-cols-2">

@@ -86,6 +86,16 @@ export async function createUrl(
     throw new Error("Error creating short URL");
   }
 
+  const { error: qrImageError } = await supabase.from("qr_images").insert({
+    user_id,
+    qr_img_path: fileName,
+  });
+
+  if (qrImageError) {
+    console.error(qrImageError.message);
+    throw new Error("Error saving QR image reference");
+  }
+
   return (data ?? []) as UrlRow[];
 }
 

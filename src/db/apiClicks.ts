@@ -27,6 +27,7 @@ export async function getClicksForUrls(urlIds: number[]): Promise<UrlClicks[]> {
     .in("url_id", urlIds);
 
   if (error) {
+    console.log("Error! in getting clicks for urls!");
     console.error(error.message);
     throw new Error("Unable to load Clicks");
   }
@@ -61,7 +62,7 @@ export async function getClicksForUrl(url_id?: number): Promise<UrlClicks[]> {
   const { data, error } = await supabase
     .from("clicks")
     .select("*")
-    .eq("url_id", url_id)
+    .eq("url_id", url_id);
 
   if (error) {
     console.error(error.message);

@@ -1,10 +1,5 @@
 import { BarLoader } from "react-spinners";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Filter } from "lucide-react";
@@ -91,6 +86,11 @@ const Dashboard = () => {
       {(filteredUrls || []).map((url, idx) => (
         <LinkCard key={idx} url={url} fetchUrls={fnUrls} />
       ))}
+      {filteredUrls?.length === 0 && (
+        <span className="text-2xl text-center font-semibold">
+          Nothing found… want to switch up the filter?🤔
+        </span>
+      )}
     </div>
   );
 };
