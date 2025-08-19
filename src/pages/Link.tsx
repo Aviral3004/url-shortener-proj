@@ -83,11 +83,11 @@ const Link = () => {
       <div className="w-full mx-auto flex justify-center my-10">
         <Button
           variant={"ghost"}
-          className="group hover:scale-95 active:scale-90"
+          className="group hover:scale-95 active:scale-95"
           onClick={reloadStats}
         >
-          <IoIosRefresh className="text-xl group-hover:text-cyan-300 text-white active:text-cyan-300" />
-          <span className="text-white group-hover:text-cyan-300 active:text-cyan-300">
+          <IoIosRefresh className="text-xl group-hover:text-cyan-300 text-white group-active:text-cyan-300" />
+          <span className="text-white group-hover:text-cyan-300 group-active:text-cyan-300">
             Refresh Stats
           </span>
         </Button>
