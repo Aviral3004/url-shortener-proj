@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UrlState } from "@/context";
 import { getClicksForUrl } from "@/db/apiClicks";
 import { deleteUrl, getUrl } from "@/db/apiUrls";
+import { IoIosRefresh } from "react-icons/io";
 import useFetch from "@/hooks/use-fetch";
 import { Check, Copy, Download, LinkIcon, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -68,13 +69,32 @@ const Link = () => {
   if (url) {
     link = url.custom_url ? url.custom_url : url.short_url;
   }
+
+  const reloadStats = async () => {
+    await fn();
+    await fnStats(); 
+  };
   return (
     <>
       <title>Link Stats</title>
       {(loading || loadingStats) && (
         <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />
       )}
-      <div className="flex flex-col gap-8 sm:flex-row justify-between">
+      <div className="w-full mx-auto flex justify-center my-10">
+        <Button
+          variant={"ghost"}
+          className="group hover:scale-95"
+          onClick={reloadStats}
+        >
+          <IoIosRefresh className="text-xl group-hover:text-cyan-300 text-white" />
+          <span className="text-white group-hover:text-cyan-300">
+            Refresh Stats
+          </span>
+        </Button>
+      </div>
+      <div
+        className="flex flex-col gap-8 sm:flex-row justify-between"
+      >
         <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5">
           <span className="md:text-5xl text-4xl font-extrabold hover:underline cursor-pointer">
             {url?.title}
@@ -103,7 +123,9 @@ const Link = () => {
             <Button
               variant={"ghost"}
               onClick={() => {
-                navigator.clipboard.writeText(`https://bytelink-url-shortner.vercel.app/${link}`);
+                navigator.clipboard.writeText(
+                  `https://bytelink-url-shortner.vercel.app/${link}`
+                );
                 setCopied(true);
               }}
             >

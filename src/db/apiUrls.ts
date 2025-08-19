@@ -43,6 +43,35 @@ export async function getUrls(user_id: string): Promise<UrlRow[]> {
 }
 
 export async function deleteUrl(id: number): Promise<null> {
+  const { data: fileArr, error: fileError } = await supabase
+    .from("qr_images")
+    .select("qr_img_path")
+    .eq("url_id", id);
+
+  if (fileError) {
+    console.error(fileError.message);
+    throw new Error("Unable to delete URL");
+  }
+  const { error: qrDelete } = await supabase
+    .from("qr_images")
+    .delete()
+    .eq("url_id", id);
+
+  if (qrDelete) {
+    console.error(qrDelete.message);
+    throw new Error("Unable to delete URL");
+  }
+
+  const fileName = fileArr[0].qr_img_path;
+
+  const { error: deleteError } = await supabase.storage
+    .from("qrs")
+    .remove(fileName);
+
+  if (deleteError) {
+    console.error(deleteError);
+    throw new Error("Unable to delete URL");
+  }
   const { data, error } = await supabase.from("urls").delete().eq("id", id);
 
   if (error) {
@@ -58,7 +87,6 @@ export async function createUrl(
 ): Promise<UrlRow[]> {
   const short_url = Math.random().toString(36).substring(2, 8);
   const fileName = `qr-${short_url}`;
-  console.log("Blob: ", qrcode);
   const { error: storageError } = await supabase.storage
     .from("qrs")
     .upload(fileName, qrcode as Blob);
@@ -86,9 +114,12 @@ export async function createUrl(
     throw new Error("Error creating short URL");
   }
 
+  const id = data[0].id;
+
   const { error: qrImageError } = await supabase.from("qr_images").insert({
     user_id,
     qr_img_path: fileName,
+    url_id: id,
   });
 
   if (qrImageError) {
