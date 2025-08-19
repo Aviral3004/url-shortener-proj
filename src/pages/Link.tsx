@@ -72,7 +72,7 @@ const Link = () => {
 
   const reloadStats = async () => {
     await fn();
-    await fnStats(); 
+    await fnStats();
   };
   return (
     <>
@@ -83,18 +83,16 @@ const Link = () => {
       <div className="w-full mx-auto flex justify-center my-10">
         <Button
           variant={"ghost"}
-          className="group hover:scale-95"
+          className="group hover:scale-95 active:scale-90"
           onClick={reloadStats}
         >
-          <IoIosRefresh className="text-xl group-hover:text-cyan-300 text-white" />
-          <span className="text-white group-hover:text-cyan-300">
+          <IoIosRefresh className="text-xl group-hover:text-cyan-300 text-white active:text-cyan-300" />
+          <span className="text-white group-hover:text-cyan-300 active:text-cyan-300">
             Refresh Stats
           </span>
         </Button>
       </div>
-      <div
-        className="flex flex-col gap-8 sm:flex-row justify-between"
-      >
+      <div className="flex flex-col gap-8 sm:flex-row justify-between">
         <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5">
           <span className="md:text-5xl text-4xl font-extrabold hover:underline cursor-pointer">
             {url?.title}
