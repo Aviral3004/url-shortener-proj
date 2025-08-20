@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+<img width="884" height="719" alt="LinkStats" src="https://github.com/user-attachments/assets/e4f0b1ce-4961-4f02-a4ba-d510ced3e39f" /># 🌐 ByteLink - URL Shortener with Analytics
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ByteLink is a full-stack URL shortener application that allows users to create, manage, and analyze their links.  
+It provides real-time analytics, QR code generation, and a modern dashboard to track clicks, location insights, and device usage.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🔗 **URL Shortening**: Generate short links with optional custom aliases.  
+- 📊 **Analytics Dashboard**: Track total clicks, city-wise insights, and device distribution (mobile/desktop).  
+- 🖼 **QR Code Support**: Automatic QR code generation for every shortened link with options to copy or download.  
+- 👤 **User Authentication**: Sign up/login functionality with secure session management.  
+- 📂 **User Dashboard**: View all links created, total clicks, and manage them with ease.  
+- 🗑 **Account Deletion**: Users can delete their account, which removes all associated data (profile pic, links, analytics).  
+- 🎨 **Modern UI**: Built with **TailwindCSS** and **Shadcn** for a smooth and responsive experience.  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Frontend**: Vite, React.js, TypeScript  
+- **UI/Styling**: TailwindCSS, Shadcn  
+- **Backend/Database**: Supabase (Authentication, Storage, Database)  
+- **Charts & Analytics**: Recharts (line charts, pie charts)  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📸 Screenshots
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🚀 Landing Page
+![Landing Page](Homepage.png)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🔐 Login / Signup Page
+![Login/Signup Page](MyLinks.png)
+
+### 📂 My Links Page
+![Login/Signup Page](MyLinks.png)
+
+### 📂 Create New Link
+![My Links Page](CreateNewLink.png)
+
+### 📊 Link Statistics Page
+![Link Statistics](LinksStats.png)
+
+---
