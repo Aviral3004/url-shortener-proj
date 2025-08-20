@@ -1,4 +1,4 @@
-<img width="884" height="719" alt="LinkStats" src="https://github.com/user-attachments/assets/e4f0b1ce-4961-4f02-a4ba-d510ced3e39f" /># 🌐 ByteLink - URL Shortener with Analytics
+# 🌐 ByteLink - URL Shortener with Analytics
 
 ByteLink is a full-stack URL shortener application that allows users to create, manage, and analyze their links.  
 It provides real-time analytics, QR code generation, and a modern dashboard to track clicks, location insights, and device usage.
@@ -41,6 +41,6 @@ It provides real-time analytics, QR code generation, and a modern dashboard to t
 ![My Links Page](CreateNewLink.png)
 
 ### 📊 Link Statistics Page
-![Link Statistics](LinksStats.png)
+![Link Statistics](LinkStats.png)
 
 ---
